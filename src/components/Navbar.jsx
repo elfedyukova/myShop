@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Button, Link, Text, Card, Radio } from "@nextui-org/react";
+import { Navbar, Button, Link, Text, Card, Radio, Popover } from "@nextui-org/react";
 
 
 export default function CustomNavbar() {
@@ -11,7 +11,6 @@ export default function CustomNavbar() {
 
         <Navbar isBordered variant={variant}>
             <Navbar.Brand>
-
                 <Text b color="inherit" hideIn="xs">
                     ACME
                 </Text>
@@ -23,13 +22,16 @@ export default function CustomNavbar() {
                 <Navbar.Link href="#">Company</Navbar.Link>
             </Navbar.Content>
             <Navbar.Content>
-                <Navbar.Link color="inherit" href="#">
-                    Login
-                </Navbar.Link>
+
                 <Navbar.Item>
-                    <Button auto flat as={Link} href="#">
-                        Sign Up
-                    </Button>
+                    <Popover placement="bottom-right">
+                        <Popover.Trigger>
+                            <Button auto flat>Корзина</Button>
+                        </Popover.Trigger>
+                        <Popover.Content>
+                            <Text css={{ p: "$10" }}>Товаров в корзине - 0 шт</Text>
+                        </Popover.Content>
+                    </Popover>
                 </Navbar.Item>
             </Navbar.Content>
         </Navbar>

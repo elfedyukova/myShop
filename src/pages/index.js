@@ -1,4 +1,4 @@
-import { Card, Container, Grid, Navbar, Row, Text } from '@nextui-org/react'
+import { Button, Card, Col, Container, Grid, Navbar, Row, Text } from '@nextui-org/react'
 import CustomNavbar from '../components/Navbar'
 
 export default function Home({ data }) {
@@ -22,10 +22,13 @@ export default function Home({ data }) {
                 </Card.Body>
                 <Card.Footer css={{ justifyItems: "flex-start" }}>
                   <Row wrap="wrap" justify="space-between" align="center">
-                    <Text b>{product.title}</Text>
-                    <Text css={{ color: "$accents7", fontWeight: "$semibold", fontSize: "$sm" }}>
-                      {product.price}
-                    </Text>
+                    <Col>
+                      <Text b>{product.title}</Text>
+                      <Text css={{ color: "$accents7", fontWeight: "$semibold", fontSize: "$sm" }}>
+                        {product.price}
+                      </Text>
+                      <Button>Добавить в корзину</Button>
+                    </Col>
                   </Row>
                 </Card.Footer>
               </Card>
