@@ -1,43 +1,33 @@
-import { Button, Card, Col, Container, Grid, Navbar, Row, Text } from '@nextui-org/react'
+import { Button, Col, Container, Grid, Row } from '@nextui-org/react'
+import { useState } from 'react'
 import CustomNavbar from '../components/Navbar'
+import ProductCard from '../components/ProductCard'
 
-export default function Home({ data }) {
+export default function Home({ initialData }) {
+
+  const [data, setData] = useState(initialData)
+
+  const loadMore = async () => {
+    const res = await fetch(`https://dummyjson.com/products?limit=6&skip=${data.products.length}`)
+    const json = await res.json()
+    setData({ ...data, products: [...data.products, ...json.products] })
+  }
 
   return (
     <>
       <CustomNavbar />
       <Container md>
         <Grid.Container gap={2} justify="flex-start">
-          {data.products.map((product, index) => (
-            <Grid xs={4} key={index}>
-              <Card css={{ mw: "400px" }}>
-                <Card.Body>
-                  <Card.Image
-                    src={product.thumbnail}
-                    objectFit="cover"
-                    width="100%"
-                    height={140}
-                    alt={product.title}
-                  />
-                </Card.Body>
-                <Card.Footer css={{ justifyItems: "flex-start" }}>
-                  <Row wrap="wrap" justify="space-between" align="center">
-                    <Col>
-                      <Text b>{product.title}</Text>
-                      <Text css={{ color: "$accents7", fontWeight: "$semibold", fontSize: "$sm" }}>
-                        {product.price}
-                      </Text>
-                      <Button>Добавить в корзину</Button>
-                    </Col>
-                  </Row>
-                </Card.Footer>
-              </Card>
-            </Grid>
+          {data?.products.map((product, index) => (
+            <ProductCard key={index} product={product} />
           )
-
           )}
-
         </Grid.Container>
+      </Container>
+      <Container gap={0}>
+        <Row gap={1} justify="center">
+          <Button onClick={() => loadMore()}>Загрузить ещё</Button>
+        </Row>
       </Container>
     </>
   )
@@ -45,9 +35,9 @@ export default function Home({ data }) {
 }
 export async function getServerSideProps() {
   // Fetch data from external API
-  const res = await fetch(`https://dummyjson.com/products`)
-  const data = await res.json()
+  const res = await fetch(`https://dummyjson.com/products?limit=6&skip=0`)
+  const initialData = await res.json()
 
   // Pass data to the page via props
-  return { props: { data } }
+  return { props: { initialData } }
 }
