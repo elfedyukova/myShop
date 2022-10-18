@@ -13,13 +13,6 @@ export default function Home({ initialData }) {
     setData({ ...data, products: [...data.products, ...json.products] })
   }
 
-  const { cartItems, setCartItems } = useAppContext();
-
-  const addToCart = (product) => {
-    console.log(product);
-    setCartItems([...cartItems, product])
-  }
-
   return (
     <>
       <CustomNavbar />
