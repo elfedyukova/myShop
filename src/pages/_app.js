@@ -14,3 +14,5 @@ function MyApp({ Component, pageProps }) {
     </AppWrapper>
   );
 }
+
+export default MyApp
