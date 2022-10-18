@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar, Button, Dropdown, Text, Card, Radio, Popover } from "@nextui-org/react";
 import { useAppContext } from "../contexts/appcontext";
+import Link from 'next/link';
 
 
 export default function CustomNavbar() {
@@ -54,11 +55,11 @@ export default function CustomNavbar() {
                             }}
                         >
                             {categories.map((cat, idx) => (
-                                <Dropdown.Item
-                                    key={`cat-${idx}`}
-                                >
-                                    {cat}
+
+                                <Dropdown.Item key={`cat-${idx}`}>
+                                    <Link href={`/category/${cat}`}><a>{cat}</a></Link>
                                 </Dropdown.Item>
+
                             ))}
                         </Dropdown.Menu>
                     </Dropdown>
