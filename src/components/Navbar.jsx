@@ -1,24 +1,68 @@
 import React from "react";
-import { Navbar, Button, Link, Text, Card, Radio, Popover } from "@nextui-org/react";
+import { Navbar, Button, Dropdown, Text, Card, Radio, Popover } from "@nextui-org/react";
 import { useAppContext } from "../contexts/appcontext";
 
 
 export default function CustomNavbar() {
-    const [variant, setVariant] = React.useState("static");
+    const { cartItems, categories } = useAppContext();
 
-    const variants = ["static", "floating", "sticky"];
-    const { cartItems } = useAppContext();
-    console.log(cartItems);
+    console.log(categories);
 
     return (
 
-        <Navbar isBordered variant={variant}>
+        <Navbar variant="static">
             <Navbar.Brand>
                 <Text b color="inherit" hideIn="xs">
                     ACME
                 </Text>
             </Navbar.Brand>
             <Navbar.Content hideIn="xs">
+                {categories.length ?
+                    <Dropdown isBordered>
+                        <Navbar.Item>
+                            <Dropdown.Button
+                                auto
+                                light
+                                css={{
+                                    px: 0,
+                                    dflex: "center",
+                                    svg: { pe: "none" },
+                                }}
+                                ripple={false}
+                            >
+                                Categories
+                            </Dropdown.Button>
+                        </Navbar.Item>
+                        <Dropdown.Menu
+                            aria-label="ACME features"
+                            css={{
+                                $$dropdownMenuWidth: "340px",
+                                $$dropdownItemHeight: "70px",
+                                "& .nextui-dropdown-item": {
+                                    py: "$4",
+                                    // dropdown item left icon
+                                    svg: {
+                                        color: "$secondary",
+                                        mr: "$4",
+                                    },
+                                    // dropdown item title
+                                    "& .nextui-dropdown-item-content": {
+                                        w: "100%",
+                                        fontWeight: "$semibold",
+                                    },
+                                },
+                            }}
+                        >
+                            {categories.map((cat, idx) => (
+                                <Dropdown.Item
+                                    key={`cat-${idx}`}
+                                >
+                                    {cat}
+                                </Dropdown.Item>
+                            ))}
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    : null}
                 <Navbar.Link href="#">Features</Navbar.Link>
                 <Navbar.Link isActive href="#">Customers</Navbar.Link>
                 <Navbar.Link href="#">Pricing</Navbar.Link>
