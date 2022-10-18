@@ -1,11 +1,14 @@
 import React from "react";
 import { Navbar, Button, Link, Text, Card, Radio, Popover } from "@nextui-org/react";
+import { useAppContext } from "../contexts/appcontext";
 
 
 export default function CustomNavbar() {
     const [variant, setVariant] = React.useState("static");
 
     const variants = ["static", "floating", "sticky"];
+    const { cartItems } = useAppContext();
+    console.log(cartItems);
 
     return (
 
@@ -29,7 +32,7 @@ export default function CustomNavbar() {
                             <Button auto flat>Корзина</Button>
                         </Popover.Trigger>
                         <Popover.Content>
-                            <Text css={{ p: "$10" }}>Товаров в корзине - 0 шт</Text>
+                            <Text css={{ p: "$10" }}>Товаров в корзине - {cartItems.length} шт</Text>
                         </Popover.Content>
                     </Popover>
                 </Navbar.Item>

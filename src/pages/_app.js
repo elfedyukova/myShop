@@ -1,13 +1,16 @@
 // 1. import `NextUIProvider` component
 import { NextUIProvider } from '@nextui-org/react';
+import { AppWrapper } from '../contexts/appcontext';
 
 function MyApp({ Component, pageProps }) {
   return (
-    // 2. Use at the root of your app
-    <NextUIProvider>
-      <Component {...pageProps} />
-    </NextUIProvider>
+
+    <AppWrapper>
+      <NextUIProvider>
+
+        <Component {...pageProps} />
+
+      </NextUIProvider>
+    </AppWrapper>
   );
 }
-
-export default MyApp;

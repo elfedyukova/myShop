@@ -1,7 +1,15 @@
 import { Button, Card, Col, Container, Grid, Navbar, Row, Text } from '@nextui-org/react'
 import CustomNavbar from '../components/Navbar'
+import { useAppContext } from '../contexts/appcontext'
 
 export default function Home({ data }) {
+
+  const { cartItems, setCartItems } = useAppContext();
+
+  const addToCart = (product) => {
+    console.log(product);
+    setCartItems([...cartItems, product])
+  }
 
   return (
     <>
@@ -27,7 +35,7 @@ export default function Home({ data }) {
                       <Text css={{ color: "$accents7", fontWeight: "$semibold", fontSize: "$sm" }}>
                         {product.price}
                       </Text>
-                      <Button>Добавить в корзину</Button>
+                      <Button onClick={() => addToCart(product)}>Добавить в корзину</Button>
                     </Col>
                   </Row>
                 </Card.Footer>
